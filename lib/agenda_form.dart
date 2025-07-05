@@ -14,6 +14,7 @@ class _AgendaFormState extends State<AgendaForm> {
   final _formKey = GlobalKey<FormState>();
   final _judul = TextEditingController();
   final _ket = TextEditingController();
+  final _date = TextEditingController();
   final _service = AgendaService();
 
   @override
@@ -22,6 +23,7 @@ class _AgendaFormState extends State<AgendaForm> {
     if (widget.agenda != null) {
       _judul.text = widget.agenda!.judul;
       _ket.text = widget.agenda!.keterangan;
+      _date.text = widget.agenda!.tanggalUpload;
     }
   }
 
@@ -31,6 +33,7 @@ class _AgendaFormState extends State<AgendaForm> {
         id: widget.agenda?.id,
         judul: _judul.text,
         keterangan: _ket.text,
+        tanggalUpload: _date.text,
       );
       try {
         if (widget.agenda == null) {
@@ -68,6 +71,15 @@ class _AgendaFormState extends State<AgendaForm> {
               TextFormField(
                 controller: _ket,
                 decoration: const InputDecoration(labelText: 'Keterangan'),
+              ),
+              TextFormField(
+                controller: _date,
+                decoration: const InputDecoration(
+                  labelText: 'Tanggal Rilis (yyyy-mm-dd)',
+                ),
+                validator: (v) => v == null || v.isEmpty || v.length < 10
+                    ? 'Format Tanggal yyyy-mm-dd'
+                    : null,
               ),
               const SizedBox(height: 20),
               ElevatedButton(onPressed: _submit, child: const Text('Simpan')),

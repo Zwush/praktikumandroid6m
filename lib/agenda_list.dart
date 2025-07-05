@@ -34,7 +34,7 @@ class _AgendaListState extends State<AgendaList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Agenda')),
+      appBar: AppBar(title: const Text('Main Form')),
       body: FutureBuilder<List<Agenda>>(
         future: _agendaList,
         builder: (context, snapshot) {
@@ -45,8 +45,14 @@ class _AgendaListState extends State<AgendaList> {
               itemBuilder: (_, i) {
                 final item = data[i];
                 return ListTile(
-                  title: Text(item.judul),
-                  subtitle: Text(item.keterangan),
+                  title: Text("Judul: " + item.judul),
+                  subtitle: Column(
+                    children: [
+                      Text("Keterangn: " + item.keterangan),
+                      Text("Tanggal Rilis: " + item.tanggalUpload),
+                    ],
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                  ),
                   trailing: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
